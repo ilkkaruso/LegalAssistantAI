@@ -1,0 +1,30 @@
+{
+  "name": "legal-assistant-ai",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:migrate": "cd apps/api && alembic upgrade head",
+    "db:migrate:create": "cd apps/api && alembic revision --autogenerate -m",
+    "docker:up": "docker-compose -f infrastructure/docker/docker-compose.dev.yml up -d",
+    "docker:down": "docker-compose -f infrastructure/docker/docker-compose.dev.yml down",
+    "docker:logs": "docker-compose -f infrastructure/docker/docker-compose.dev.yml logs -f"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^1.12.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

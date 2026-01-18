@@ -1,0 +1,64 @@
+# Web Framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Database
+sqlalchemy==2.0.36
+alembic==1.14.0
+psycopg2-binary==2.9.10
+asyncpg==0.30.0
+pgvector==0.3.6
+
+# Redis
+redis==5.2.1
+hiredis==3.3.0
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Validation
+pydantic==2.10.5
+pydantic-settings==2.7.1
+email-validator==2.2.0
+
+# AI/ML
+anthropic==0.76.0
+langchain==0.3.19
+langchain-anthropic==0.3.9
+langgraph==0.2.69
+sentence-transformers==3.4.0
+tiktoken==0.8.0
+
+# Document Processing
+# Note: unstructured[pdf] requires onnxruntime which doesn't support Python 3.14 yet
+# Using pypdf directly for PDF processing for now
+pypdf==5.1.0
+python-docx==1.1.2
+openpyxl==3.1.5
+Pillow==11.0.0
+python-magic==0.4.27
+beautifulsoup4==4.14.3
+lxml==6.0.2
+chardet==5.2.0
+
+# Background Tasks
+celery==5.4.0
+celery[redis]==5.4.0
+
+# HTTP Client
+httpx==0.28.1
+aiohttp==3.11.11
+
+# Storage
+boto3==1.35.97
+minio==7.2.14
+
+# Utilities
+python-dotenv==1.0.1
+pytz==2024.2
+python-slugify==8.0.4
+
+# Logging
+loguru==0.7.3
