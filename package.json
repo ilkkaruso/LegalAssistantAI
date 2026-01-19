@@ -17,7 +17,9 @@
     "db:migrate:create": "cd apps/api && alembic revision --autogenerate -m",
     "docker:up": "docker-compose -f infrastructure/docker/docker-compose.dev.yml up -d",
     "docker:down": "docker-compose -f infrastructure/docker/docker-compose.dev.yml down",
-    "docker:logs": "docker-compose -f infrastructure/docker/docker-compose.dev.yml logs -f"
+    "docker:logs": "docker-compose -f infrastructure/docker/docker-compose.dev.yml logs -f",
+    "dev:word": "npm --prefix LegalAssistantAIWordApp run dev",
+    "build:word": "npm --prefix LegalAssistantAIWordApp run build"
   },
   "devDependencies": {
     "prettier": "^3.2.5",

@@ -40,6 +40,11 @@ class Settings(BaseSettings):
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
+    # OpenAI
+    OPENAI_API_KEY: Optional[str] = None
+    OPENAI_MODEL: str = "gpt-4o-mini"
+    OPENAI_TEMPERATURE: float = 0.2
+
     # Anthropic
     ANTHROPIC_API_KEY: str
     ANTHROPIC_MODEL: str = "claude-3-5-sonnet-20241022"
@@ -50,7 +55,7 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/2"
 
     # CORS
-    CORS_ORIGINS: Any = "http://localhost:3000"
+    CORS_ORIGINS: Any = "http://localhost:3000,https://localhost:3002"
     
     @field_validator('CORS_ORIGINS', mode='before')
     @classmethod
