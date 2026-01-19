@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import PostgresDsn, field_validator
 from typing import Optional, Any
 import secrets
@@ -6,6 +6,12 @@ import secrets
 
 class Settings(BaseSettings):
     """Application settings."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+        extra="ignore"
+    )
 
     # Application
     APP_NAME: str = "Legal Assistant AI"
@@ -44,14 +50,17 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/2"
 
     # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:3000"]
-
-    @field_validator("CORS_ORIGINS", mode="before")
+    CORS_ORIGINS: Any = "http://localhost:3000"
+    
+    @field_validator('CORS_ORIGINS', mode='before')
     @classmethod
     def parse_cors_origins(cls, v: Any) -> list[str]:
+        """Parse CORS_ORIGINS from comma-separated string."""
         if isinstance(v, str):
-            return [i.strip() for i in v.split(",")]
-        return v
+            return [item.strip() for item in v.split(",") if item.strip()]
+        elif isinstance(v, list):
+            return v
+        return ["http://localhost:3000"]
 
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60
@@ -59,17 +68,23 @@ class Settings(BaseSettings):
 
     # File Upload
     MAX_UPLOAD_SIZE: int = 104857600  # 100MB
-    ALLOWED_FILE_TYPES: list[str] = ["pdf", "docx", "doc", "txt"]
+    ALLOWED_FILE_TYPES: Any = "pdf,docx,doc,txt"
+    
+    @field_validator('ALLOWED_FILE_TYPES', mode='before')
+    @classmethod
+    def parse_file_types(cls, v: Any) -> list[str]:
+        """Parse ALLOWED_FILE_TYPES from comma-separated string."""
+        if isinstance(v, str):
+            return [item.strip() for item in v.split(",") if item.strip()]
+        elif isinstance(v, list):
+            return v
+        return ["pdf", "docx", "doc", "txt"]
 
     # Encryption
     ENCRYPTION_KEY: Optional[str] = None
 
     # Logging
     LOG_LEVEL: str = "INFO"
-
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
 
 
 settings = Settings()
