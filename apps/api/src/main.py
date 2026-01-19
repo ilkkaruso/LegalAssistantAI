@@ -7,8 +7,8 @@ from src.config import settings
 from src.core.logging import setup_logging
 from src.db.session import engine, Base
 
-# Import API routers (will be created in later phases)
-# from src.api.v1 import auth, users, documents, conversations, assistant
+# Import API routers
+from src.api.v1 import api_router
 
 
 @asynccontextmanager
@@ -60,12 +60,8 @@ async def readiness_check():
     return {"status": "ready"}
 
 
-# Include API routers (will be added in later phases)
-# app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
-# app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["users"])
-# app.include_router(documents.router, prefix=f"{settings.API_V1_STR}/documents", tags=["documents"])
-# app.include_router(conversations.router, prefix=f"{settings.API_V1_STR}/conversations", tags=["conversations"])
-# app.include_router(assistant.router, prefix=f"{settings.API_V1_STR}/assistant", tags=["assistant"])
+# Include API routers
+app.include_router(api_router)
 
 
 @app.exception_handler(Exception)

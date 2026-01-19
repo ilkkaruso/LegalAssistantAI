@@ -14,6 +14,8 @@ if config.config_file_name is not None:
 # Import Base and all models for autogenerate support
 from src.db.base import Base  # noqa
 from src.config import settings
+# Import all models to ensure they're registered with Base.metadata
+from src.models import *  # noqa
 
 # Set the database URL from settings
 config.set_main_option("sqlalchemy.url", str(settings.DATABASE_URL))
